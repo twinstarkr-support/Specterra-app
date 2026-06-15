@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Specterra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #1a0818;
+      --surface:  #240d22;
+      --border:   #3d1538;
+      --accent:   #8b1a6b;
+      --accent-bright: #b8237e;
+      --accent2:  #d946a8;
+      --text:     #f5eaf3;
+      --muted:    #9e7a98;
+      --android:  #3ddc84;
+      --ios:      #f5eaf3;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(180,35,126,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(180,35,126,.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* glow blob */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse at center, rgba(139,26,107,.25) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Language switcher ── */
+    .lang-bar {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      gap: .4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      padding: .3rem .75rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all .15s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .lang-btn:hover {
+      border-color: var(--accent-bright);
+      color: var(--text);
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* ── Card ── */
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 3rem 2.5rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow:
+        0 0 0 1px rgba(180,35,126,.08),
+        0 8px 60px rgba(139,26,107,.20);
+    }
+
+    /* ── App icon ── */
+    .app-icon {
+      width: 96px;
+      height: 96px;
+      border-radius: 24px;
+      overflow: hidden;
+      margin: 0 auto 1.5rem;
+      border: 2px solid var(--border);
+      box-shadow: 0 4px 24px rgba(139,26,107,.35);
+    }
+
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── Title ── */
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      background: linear-gradient(120deg, var(--text) 30%, var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: .45rem;
+    }
+
+    .version-badge {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--accent2);
+      background: rgba(180,35,126,.15);
+      border: 1px solid rgba(180,35,126,.3);
+      border-radius: 999px;
+      padding: .2rem .8rem;
+      margin-bottom: 1.25rem;
+      letter-spacing: .04em;
+    }
+
+    .tagline {
+      color: var(--muted);
+      font-size: .93rem;
+      line-height: 1.65;
+      margin-bottom: 2rem;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin-bottom: 1.75rem;
+    }
+
+    /* ── Buttons ── */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: .9rem;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .65rem;
+      padding: 1rem 1.5rem;
+      border-radius: 14px;
+      font-size: .98rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .15s ease, box-shadow .15s ease, opacity .15s;
+      border: none;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn:active { transform: scale(.97); }
+
+    .btn-android {
+      background: var(--android);
+      color: #0b1a12;
+      box-shadow: 0 4px 24px rgba(61,220,132,.20);
+    }
+    .btn-android:hover {
+      box-shadow: 0 6px 32px rgba(61,220,132,.38);
+      opacity: .93;
+    }
+
+    .btn-ios {
+      background: transparent;
+      color: var(--ios);
+      border: 1.5px solid var(--border);
+    }
+    .btn-ios:hover {
+      background: rgba(255,255,255,.05);
+      border-color: rgba(245,234,243,.3);
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 2rem 1.25rem; border-radius: 20px; }
+      h1 { font-size: 1.75rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Language switcher -->
+  <div class="lang-bar">
+    <button class="lang-btn active" onclick="setLang('ko')" id="btn-ko">한국어</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btn-en">English</button>
+    <button class="lang-btn" onclick="setLang('vi')" id="btn-vi">Tiếng Việt</button>
+  </div>
+
+  <div class="card">
+    <div class="app-icon">
+      <img src="logo.png" alt="Specterra logo" />
+    </div>
+
+    <h1>Specterra</h1>
+    <span class="version-badge">v1.0.1</span>
+
+    <p class="tagline" id="tagline"></p>
+
+    <div class="divider"></div>
+
+    <div class="btn-group">
+      <a class="btn btn-android" id="btn-android"
+        href="https://github.com/twinstarkr-support/Specterra-app/releases/download/v1.0.1/specterra-v1.0.1.apk"
+        download>
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M6.18 17c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V18h1.6v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V18h1c.55 0 1-.45 1-1V9H6.18v8zm-2.5-8c-.83 0-1.5.67-1.5 1.5v6c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-6c0-.83-.67-1.5-1.5-1.5zm16.64 0c-.83 0-1.5.67-1.5 1.5v6c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-6c0-.83-.67-1.5-1.5-1.5zM15.53 2.16l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48A5.84 5.84 0 0 0 12 1c-.88 0-1.71.21-2.44.57L8.08.09c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.3 1.3C7.29 3.08 6.18 4.94 6.18 7h11.64c0-2.06-1.11-3.92-2.29-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/>
+        </svg>
+        <span id="label-android"></span>
+      </a>
+
+      <a class="btn btn-ios" id="btn-ios"
+        href="https://apps.apple.com/app/id6762033705"
+        target="_blank" rel="noopener noreferrer">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+        </svg>
+        <span id="label-ios"></span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const i18n = {
+      ko: {
+        tagline: 'Specterra 앱을 다운로드하세요.\nAndroid와 iOS에서 모두 이용 가능합니다.',
+        android: 'Android 다운로드 (APK)',
+        ios:     'App Store에서 다운로드',
+      },
+      en: {
+        tagline: 'Download the Specterra app.\nAvailable on Android and iOS.',
+        android: 'Download for Android (APK)',
+        ios:     'Download on the App Store',
+      },
+      vi: {
+        tagline: 'Tải ứng dụng Specterra về thiết bị của bạn.\nCó sẵn trên Android và iOS.',
+        android: 'Tải xuống cho Android (APK)',
+        ios:     'Tải xuống trên App Store',
+      },
+    };
+
+    function setLang(lang) {
+      const t = i18n[lang];
+      document.getElementById('tagline').innerText = t.tagline;
+      document.getElementById('label-android').innerText = t.android;
+      document.getElementById('label-ios').innerText = t.ios;
+      document.documentElement.lang = lang;
+
+      ['ko','en','vi'].forEach(l => {
+        document.getElementById('btn-' + l).classList.toggle('active', l === lang);
+      });
+
+      localStorage.setItem('specterra-lang', lang);
+    }
+
+    // Init: saved preference → ko default
+    const saved = localStorage.getItem('specterra-lang');
+    setLang(saved && i18n[saved] ? saved : 'ko');
+  </script>
+</body>
+</html>
