@@ -10,16 +10,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #1a0818;
-      --surface:  #240d22;
-      --border:   #3d1538;
-      --accent:   #8b1a6b;
-      --accent-bright: #b8237e;
-      --accent2:  #d946a8;
-      --text:     #f5eaf3;
-      --muted:    #9e7a98;
-      --android:  #3ddc84;
-      --ios:      #f5eaf3;
+      --bg:           #1a0818;
+      --surface:      #240d22;
+      --border:       #3d1538;
+      --accent:       #8b1a6b;
+      --accent-bright:#b8237e;
+      --accent2:      #d946a8;
+      --text:         #f5eaf3;
+      --muted:        #9e7a98;
+      --android:      #3ddc84;
     }
 
     body {
@@ -28,7 +27,6 @@
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 2rem 1rem;
@@ -46,7 +44,6 @@
       z-index: 0;
     }
 
-    /* glow blob */
     body::after {
       content: '';
       position: fixed;
@@ -60,41 +57,6 @@
       z-index: 0;
     }
 
-    /* ── Language switcher ── */
-    .lang-bar {
-      position: relative;
-      z-index: 10;
-      display: flex;
-      gap: .4rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .lang-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .06em;
-      padding: .3rem .75rem;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all .15s ease;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .lang-btn:hover {
-      border-color: var(--accent-bright);
-      color: var(--text);
-    }
-
-    .lang-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
-
-    /* ── Card ── */
     .card {
       position: relative;
       z-index: 1;
@@ -110,7 +72,6 @@
         0 8px 60px rgba(139,26,107,.20);
     }
 
-    /* ── App icon ── */
     .app-icon {
       width: 96px;
       height: 96px;
@@ -128,7 +89,6 @@
       display: block;
     }
 
-    /* ── Title ── */
     h1 {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 2.1rem;
@@ -159,6 +119,7 @@
       font-size: .93rem;
       line-height: 1.65;
       margin-bottom: 2rem;
+      white-space: pre-line;
     }
 
     .divider {
@@ -167,7 +128,6 @@
       margin-bottom: 1.75rem;
     }
 
-    /* ── Buttons ── */
     .btn-group {
       display: flex;
       flex-direction: column;
@@ -204,7 +164,7 @@
 
     .btn-ios {
       background: transparent;
-      color: var(--ios);
+      color: var(--text);
       border: 1.5px solid var(--border);
     }
     .btn-ios:hover {
@@ -223,14 +183,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Language switcher -->
-  <div class="lang-bar">
-    <button class="lang-btn active" onclick="setLang('ko')" id="btn-ko">한국어</button>
-    <button class="lang-btn" onclick="setLang('en')" id="btn-en">English</button>
-    <button class="lang-btn" onclick="setLang('vi')" id="btn-vi">Tiếng Việt</button>
-  </div>
-
   <div class="card">
     <div class="app-icon">
       <img src="logo.png" alt="Specterra logo" />
@@ -244,7 +196,7 @@
     <div class="divider"></div>
 
     <div class="btn-group">
-      <a class="btn btn-android" id="btn-android"
+      <a class="btn btn-android"
         href="https://github.com/twinstarkr-support/Specterra-app/releases/download/v1.0.1/specterra-v1.0.1.apk"
         download>
         <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -253,7 +205,7 @@
         <span id="label-android"></span>
       </a>
 
-      <a class="btn btn-ios" id="btn-ios"
+      <a class="btn btn-ios"
         href="https://apps.apple.com/app/id6762033705"
         target="_blank" rel="noopener noreferrer">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -267,39 +219,39 @@
   <script>
     const i18n = {
       ko: {
-        tagline: 'Specterra 앱을 다운로드하세요.\nAndroid와 iOS에서 모두 이용 가능합니다.',
-        android: 'Android 다운로드 (APK)',
-        ios:     'App Store에서 다운로드',
-      },
-      en: {
-        tagline: 'Download the Specterra app.\nAvailable on Android and iOS.',
-        android: 'Download for Android (APK)',
-        ios:     'Download on the App Store',
+        tagline:  'Specterra 앱을 다운로드하세요.\nAndroid와 iOS에서 모두 이용 가능합니다.',
+        android:  'Android 다운로드 (APK)',
+        ios:      'App Store에서 다운로드',
       },
       vi: {
-        tagline: 'Tải ứng dụng Specterra về thiết bị của bạn.\nCó sẵn trên Android và iOS.',
-        android: 'Tải xuống cho Android (APK)',
-        ios:     'Tải xuống trên App Store',
+        tagline:  'Tải ứng dụng Specterra về thiết bị của bạn.\nCó sẵn trên Android và iOS.',
+        android:  'Tải xuống cho Android (APK)',
+        ios:      'Tải xuống trên App Store',
+      },
+      en: {
+        tagline:  'Download the Specterra app.\nAvailable on Android and iOS.',
+        android:  'Download for Android (APK)',
+        ios:      'Download on the App Store',
       },
     };
 
-    function setLang(lang) {
-      const t = i18n[lang];
-      document.getElementById('tagline').innerText = t.tagline;
-      document.getElementById('label-android').innerText = t.android;
-      document.getElementById('label-ios').innerText = t.ios;
-      document.documentElement.lang = lang;
-
-      ['ko','en','vi'].forEach(l => {
-        document.getElementById('btn-' + l).classList.toggle('active', l === lang);
-      });
-
-      localStorage.setItem('specterra-lang', lang);
+    function detectLang() {
+      const langs = navigator.languages || [navigator.language || 'en'];
+      for (const l of langs) {
+        const code = l.toLowerCase();
+        if (code.startsWith('ko')) return 'ko';
+        if (code.startsWith('vi')) return 'vi';
+      }
+      return 'en';
     }
 
-    // Init: saved preference → ko default
-    const saved = localStorage.getItem('specterra-lang');
-    setLang(saved && i18n[saved] ? saved : 'ko');
+    const lang = detectLang();
+    const t = i18n[lang];
+
+    document.documentElement.lang = lang;
+    document.getElementById('tagline').innerText      = t.tagline;
+    document.getElementById('label-android').innerText = t.android;
+    document.getElementById('label-ios').innerText     = t.ios;
   </script>
 </body>
 </html>
